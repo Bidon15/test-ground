@@ -13,7 +13,10 @@ enable_go_build_cache = true
 [runners."local:docker"]
 enabled = true
 
+[[testcases]]
+name = "one"
+instances = { min = 1, max = 100, default = 1 }
 
 [[testcases]]
-name = "test-sync"
+name = "many"
 instances = { min = 1, max = 100, default = 1 }
