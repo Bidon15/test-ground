@@ -44,10 +44,10 @@ func oneToMany(runenv *runtime.RunEnv, initCtx *run.InitContext) error {
 				return err
 			}
 
-			for i := 1; i <= runenv.TestInstanceCount-1; i++ {
+			//for i := 1; i <= runenv.TestInstanceCount-1; i++ {
 				f := <-fch
 				runenv.RecordMessage("%d has received the message --> %s", id, f)
-			}
+			//}
 		}
 	}
 	return nil
