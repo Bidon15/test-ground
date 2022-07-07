@@ -37,17 +37,17 @@ func oneToMany(runenv *runtime.RunEnv, initCtx *run.InitContext) error {
 				return err
 			}
 			runenv.RecordMessage("Seq number - %d", seq)
-		}
+		} else {
+			fch := make(chan string)
+			_, err := client.Subscribe(ctx, ft, fch)
+			if err != nil {
+				return err
+			}
 
-		fch := make(chan string)
-		_, err := client.Subscribe(ctx, ft, fch)
-		if err != nil {
-			return err
-		}
-
-		for i := 1; i <= runenv.TestInstanceCount; i++ {
-			f := <-fch
-			runenv.RecordMessage("%d has received the message --> %s", id, f)
+			for i := 1; i <= runenv.TestInstanceCount-1; i++ {
+				f := <-fch
+				runenv.RecordMessage("%d has received the message --> %s", id, f)
+			}
 		}
 	}
 	return nil
